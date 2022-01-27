@@ -7,8 +7,8 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon --inspect -r dotenv/config src/server.js",
-    "lint": "npx exlint ./src || exit 0",
-    "lint:fix": "npx exlint ./src --fix || exit 0"
+    "lint": "npx eslint ./src || exit 0",
+    "lint:fix": "npx eslint ./src --fix || exit 0"
   },
   "repository": {
     "type": "git",
@@ -16,5 +16,19 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.2",
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.17.2",
+    "mongoose": "^6.1.6",
+    "morgan": "^1.10.0",
+    "socket.io": "^4.4.1"
+  },
+  "devDependencies": {
+    "@lnu/eslint-config": "^1.1.4",
+    "dotenv": "^12.0.3",
+    "nodemon": "^2.0.15"
+  }
 }
