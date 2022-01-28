@@ -114,7 +114,7 @@ export class SnippetsController {
     try {
       const snippet = await Snippet.findById(req.params.id)
 
-      res.render('tasks/delete', { viewData: snippet.toObject() })
+      res.render('snippets/delete', { viewData: snippet.toObject() })
     } catch (error) {
       req.session.flash = { type: 'danger', text: error.message }
       res.redirect('..')
