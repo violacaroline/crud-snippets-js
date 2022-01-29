@@ -11,7 +11,11 @@ body {
   max-width: 1200px;
 }
 
-p, h1, h2, h3, a, ul{
+h1 {
+  font-size: 25px;
+}
+
+h1, h2, h3, a, p, ul{
   margin: 0;
   padding: 0;
   text-decoration: none;
@@ -23,7 +27,7 @@ nav {
   justify-content: space-between;
   margin-bottom: 60px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1.5px solid #ddd;
   text-transform: uppercase;
 }
 
@@ -32,6 +36,7 @@ nav ul {
   justify-content: space-between;
   align-items: flex-end;
 }
+
 nav li {
   list-style-type: none;
   margin-left: 20px;

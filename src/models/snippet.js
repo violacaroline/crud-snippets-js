@@ -1,12 +1,13 @@
 import mongoose from 'mongoose'
 
-// Create a schema.
+// Create a schema. THIS NEEDS TO BE CUSTOMIZED TO CRUD SNIPPETS
 const schema = new mongoose.Schema({
   description: {
     type: String,
     required: true,
     trim: true,
-    minlength: 1
+    minlength: 1,
+    maxlength: 500 // IS THIS OK?
   },
   done: {
     type: Boolean,
