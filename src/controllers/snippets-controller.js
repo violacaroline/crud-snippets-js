@@ -49,10 +49,10 @@ export class SnippetsController {
 
       await snippet.save()
 
-      req.session.flash = { type: 'success', text: 'The snippet was created!' }
+      // req.session.flash = { type: 'success', text: 'The snippet was created!' }
       res.redirect('.')
     } catch (error) {
-      req.session.flash = { type: 'danger', text: error.message }
+      // req.session.flash = { type: 'danger', text: error.message }
       res.redirect('./create')
     }
   }
@@ -69,7 +69,7 @@ export class SnippetsController {
 
       res.render('snippets/update', { viewData: snippet.toObject() })
     } catch (error) {
-      req.session.flash = { type: 'danger', text: error.message }
+      // req.session.flash = { type: 'danger', text: error.message }
       res.redirect('..')
     }
   }
@@ -90,16 +90,16 @@ export class SnippetsController {
 
         await snippet.save()
 
-        req.session.flash = { type: 'success', text: 'The snippet was updated!' }
+        // req.session.flash = { type: 'success', text: 'The snippet was updated!' }
       } else {
-        req.session.flash = {
-          type: 'danger',
-          text: 'The snippet you attempted to update was removed by another user after you got the original values.'
-        }
+        // req.session.flash = {
+        //   type: 'danger',
+        //   text: 'The snippet you attempted to update was removed by another user after you got the original values.'
+        // }
       }
       res.redirect('..')
     } catch (error) {
-      req.session.flash = { type: 'danger', text: error.message }
+      // req.session.flash = { type: 'danger', text: error.message }
       res.redirect('./update')
     }
   }
@@ -116,7 +116,7 @@ export class SnippetsController {
 
       res.render('snippets/delete', { viewData: snippet.toObject() })
     } catch (error) {
-      req.session.flash = { type: 'danger', text: error.message }
+      // req.session.flash = { type: 'danger', text: error.message }
       res.redirect('..')
     }
   }
@@ -131,10 +131,10 @@ export class SnippetsController {
     try {
       await Snippet.findByIdAndDelete(req.body.id)
 
-      req.session.flash = { type: 'success', text: 'The snippet was deleted.' }
+      // req.session.flash = { type: 'success', text: 'The snippet was deleted.' }
       res.redirect('..')
     } catch (error) {
-      req.session.flash = { type: 'danger', text: error.message }
+      // req.session.flash = { type: 'danger', text: error.message }
       res.redirect('./delete')
     }
   }
