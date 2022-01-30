@@ -7,6 +7,7 @@
 import express from 'express'
 import expressLayouts from 'express-ejs-layouts'
 // import session from 'express-session'
+// import helmet from 'helmet'
 import logger from 'morgan'
 import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
@@ -22,6 +23,9 @@ try {
 
   // Get the directory name of this module's path.
   const directoryFullName = dirname(fileURLToPath(import.meta.url))
+
+  // Secure with helmet
+  // app.use(helmet())
 
   // Set the base URL to use for all relative URLs in a document.
   const baseURL = process.env.BASE_URL || '/'

@@ -10,7 +10,7 @@ export const router = express.Router()
 router.use('/', homeRouter)
 
 router.use('/snippets', snippetRouter) // TEST ADDED BY ME, SOMETHING IS UP HERE DOES NOT WORK WITHOUT /SNIPPETS
-// BUT SOMETIME ADDS SNIPPET/SNIPPET WHEN PRESSING LINKS ON HOME PAGE
+// BUT SOMETIMES ADDS SNIPPET/SNIPPET WHEN PRESSING LINKS ON HOME PAGE - ALSO PROBLEMS IN SNIPPETS-ROUTER
 router.use('*', (req, res, next) => {
   const error = new Error('Not Found')
   error.status = 404
