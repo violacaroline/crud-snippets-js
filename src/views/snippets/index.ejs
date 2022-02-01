@@ -10,9 +10,10 @@
     <% if (viewData?.snippets?.length) { %>
       <% for (const snippet of viewData.snippets) { %>
         <tr>
+          <td class="table-snippets"><%= snippet.title %></td> <td class="table-snippets"><%= snippet.snippet %></td>
           <td class="text-nowrap">
-            <a href="./snippets/<%= snippet.id %>/update">Update</a>
-            <a href="./snippets/<%= snippet.id %>/delete">Delete</a>
+            <a href="./snippets/<%= snippet.id %>/update" class="update-delete">Update</a>
+            <a href="./snippets/<%= snippet.id %>/delete" class="update-delete">Delete</a>
           </td>
         </tr>
         <% } %>
