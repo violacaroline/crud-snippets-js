@@ -44,7 +44,7 @@ export class SnippetsController {
     console.log(req.body)
     try {
       const snippet = new Snippet({
-        description: req.body.description
+        description: req.body.title // TITLE ADDED BY ME, WAS DESCRIPTION - FIX MODEL.
       })
 
       await snippet.save()
