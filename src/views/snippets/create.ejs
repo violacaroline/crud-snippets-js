@@ -1,9 +1,9 @@
 <h1>Create snippet</h1>
-<form class="row g-3" method="post" action="/snippets/create">
+<form class="row g-3" method="post" action="./create"> <!-- REMOVED /snippets FOR . -->
   <label for="title">Snippet title:</label>
       <input type="text" id="title" name="title" required>
       <label for="body">Code snippet:</label>
-      <textarea id="body" name="body" required></textarea>
+      <textarea id="body" name="snippet" required></textarea>
   <div class="col-12">
     <button type="submit" class="btn btn-primary">Create</button>
   </div>

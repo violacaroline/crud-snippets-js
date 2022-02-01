@@ -25,6 +25,23 @@ export class SnippetsController {
   }
 
   /**
+   * Returns a HTML form for logging in.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   */
+  async login (req, res) {
+    res.render('snippets/login')
+  }
+
+  /**
+   * Logs a user in. NEEDS TO BE FIXED.
+   *
+   * @param {*} req - Express request object.
+   * @param {*} res - Express response object.
+   */
+
+  /**
    * Returns a HTML form for creating a new snippet.
    *
    * @param {object} req - Express request object.
@@ -41,10 +58,11 @@ export class SnippetsController {
    * @param {object} res - Express response object.
    */
   async createPost (req, res) {
-    console.log(req.body)
+    console.log('Should be printing request body', req.body)
     try {
       const snippet = new Snippet({
-        description: req.body.title // TITLE ADDED BY ME, WAS DESCRIPTION - FIX MODEL.
+        title: req.body.title, // TITLE ADDED BY ME, WAS DESCRIPTION - FIX MODEL.
+        snippet: req.body.snippet
       })
 
       await snippet.save()

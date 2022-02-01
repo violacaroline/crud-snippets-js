@@ -9,8 +9,11 @@ const controller = new SnippetsController()
 
 router.get('/', (req, res, next) => controller.index(req, res, next)) // FUNGERAR INTE UTAN SNIPPETS?
 
-router.get('/create', (req, res, next) => controller.create(req, res, next)) // JAG HAR LAGT TILL /SNIPPETS/
-router.post('/create', (req, res, next) => controller.createPost(req, res, next)) // JAG HAR LAGT TILL /SNIPPETS/
+router.get('/login', (req, res, next) => controller.login(req, res, next))
+router.post('/login', (req, res, next) => controller.loginPost(req, res, next))
+
+router.get('/create', (req, res, next) => controller.create(req, res, next))
+router.post('/create', (req, res, next) => controller.createPost(req, res, next))
 
 router.get('/:id/update', (req, res, next) => controller.update(req, res, next))
 router.post('/:id/update', (req, res, next) => controller.updatePost(req, res, next))
