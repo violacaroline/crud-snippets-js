@@ -58,10 +58,9 @@ export class SnippetsController {
    * @param {object} res - Express response object.
    */
   async createPost (req, res) {
-    console.log('Should be printing request body', req.body)
     try {
       const snippet = new Snippet({
-        title: req.body.title, // TITLE ADDED BY ME, WAS DESCRIPTION - FIX MODEL.
+        title: req.body.title,
         snippet: req.body.snippet
       })
 
@@ -103,8 +102,10 @@ export class SnippetsController {
       const snippet = await Snippet.findById(req.params.id)
 
       if (snippet) {
-        snippet.description = req.body.description
-        snippet.done = req.body.done === 'on'
+        // snippet.description = req.body.description
+        // snippet.done = req.body.done === 'on' CHANGED THIS TO BELOW
+        snippet.title = req.body.title
+        snippet.snippet = req.body.snippet
 
         await snippet.save()
 

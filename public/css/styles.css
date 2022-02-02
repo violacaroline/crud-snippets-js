@@ -98,6 +98,8 @@ nav li {
 }
 
 .table-snippets {
+  max-width: 150px;
+  overflow: hidden;
   padding: 0px;
   text-align: left;
 }
@@ -121,5 +123,6 @@ nav li {
   height: 60px;
   line-height: 60px; /* Vertically center the text there */
   background-color: crimson;
+  border-radius: 10px;
 }
 

@@ -1,20 +1,20 @@
 import mongoose from 'mongoose'
 
-// Create a schema. THIS NEEDS TO BE CUSTOMIZED TO CRUD SNIPPETS
+// Create a schema.
 const schema = new mongoose.Schema({
-  title: { // HERE I WILL NEED TITLE AND SNIPPET PROPERTIES // CHANGED FROM DESCRIPTION TO TITLE
+  title: {
     type: String,
     required: true,
     trim: true,
     minlength: 1,
-    maxlength: 100 // IS THIS OK?
+    maxlength: 100
   },
-  snippet: { // ADDED
+  snippet: {
     type: String,
     required: true,
     trim: true,
     minlength: 1,
-    maxlength: 500 // IS THIS OK?
+    maxlength: 2000
   }
 }, {
   timestamps: true,
