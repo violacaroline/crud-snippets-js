@@ -33,13 +33,13 @@ const userSchema = new mongoose.Schema({
      */
     transform: function (doc, ret) {
       delete ret._id
-      delete ret.__v // NECESSARY FOR USER MODEL?
+      delete ret.__v
     }
   }
 })
 
 userSchema.virtual('id').get(function () {
-  return this._id.toHexString() // NECESSARY FOR USER MODEL?
+  return this._id.toHexString()
 })
 
 /**

@@ -1,5 +1,5 @@
 <h1>Delete snippet</h1>
-<form class="row g-3" method="post" action="/snippets/<%= viewData?.id %>/delete"> <!-- REMOVED THE DOT ./SNIPPETS -->
+<form class="row g-3" method="post" action="/snippets/<%= viewData?.id %>/delete">
   <input type="hidden" name="id" value="<%= viewData?.id %>" />
   <div class="col-md-12">
     <label class="form-label" for="descriptionInput">
@@ -7,7 +7,7 @@
     </label>
     <input type="text" class="form-control" id="descriptionInput"
       placeholder="Update snippets title here" value="<%= viewData?.title %>"
-      disabled /> <!-- CHANGED TO TITLE IN PLACEHOLDER AND VALUE, WAS DESCRIPTION -->
+      disabled />
   </div>
   <div class="col-12">
     <button type="submit" class="btn btn-primary" autofocus="autofocus">Delete</button>

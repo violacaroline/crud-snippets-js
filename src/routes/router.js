@@ -3,7 +3,7 @@
  */
 import express from 'express'
 import { router as homeRouter } from './home-router.js'
-import { router as snippetRouter } from './snippets-router.js' // TEST ADDED BY ME
+import { router as snippetRouter } from './snippets-router.js'
 
 export const router = express.Router()
 

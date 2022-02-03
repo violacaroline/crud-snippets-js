@@ -1,5 +1,4 @@
 import { Snippet } from '../models/snippet.js'
-// SKALL JAG IMPORTERA USER MODEL HÄR?
 import { User } from '../models/user.js'
 
 /**
@@ -37,7 +36,7 @@ export class SnippetsController {
   }
 
   /**
-   * Registers a user. NEEDS TO BE FIXED. KAN DEN SE LIKADAN UT SOM CREATE POST?
+   * Registers a user. NEEDS TO BE FIXED.
    *
    * @param {*} req - Express request object.
    * @param {*} res - Express response object.
@@ -59,7 +58,7 @@ export class SnippetsController {
       //   res.redirect('./register')
       // }
 
-      await user.save() // HUR SKA JAG SPARA I DATABAS KORREKT?
+      await user.save()
 
       req.session.flash = { type: 'success', text: 'You have been registered!' }
       res.redirect('./login')
@@ -94,8 +93,6 @@ export class SnippetsController {
         console.log('The user:', user)
         res.redirect('.')
       })
-
-      // await user.save() // HUR SKA JAG SPARA I DATABAS KORREKT?
     } catch (error) {
       req.session.flash = { type: 'danger', text: error.message } // 'Log in failed'
       res.redirect('./login')

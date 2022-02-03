@@ -15,7 +15,7 @@ const schema = new mongoose.Schema({
     trim: true,
     minlength: 1,
     maxlength: 500
-  }
+  } // NEEDS A CREATOR TO BE ABLE TO AUTHORIZE???
 }, {
   timestamps: true,
   toObject: {
