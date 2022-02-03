@@ -49,10 +49,12 @@ export class SnippetsController {
         password: req.body.password
       })
 
+      // ENCRYPT PASSWORDS? BCRYPT.HASH(PASSWORD, SALT)?
+
       await user.save() // HUR SKA JAG SPARA I DATABAS KORREKT?
 
       req.session.flash = { type: 'success', text: 'You have been registered!' }
-      res.redirect('/')
+      res.redirect('./login')
     } catch (error) {
       req.session.flash = { type: 'danger', text: error.message }
       res.redirect('./register')
