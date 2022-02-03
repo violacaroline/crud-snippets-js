@@ -84,6 +84,8 @@ export class SnippetsController {
       //   password: req.body.password
       // })
 
+      // LOGIK FÖR BCRYPT ETC
+
       // await user.save() // HUR SKA JAG SPARA I DATABAS KORREKT?
 
       req.session.flash = { type: 'success', text: 'You have been logged in!' }
@@ -136,6 +138,7 @@ export class SnippetsController {
   async update (req, res) {
     try {
       const snippet = await Snippet.findById(req.params.id)
+      console.log(snippet)
 
       res.render('snippets/update', { viewData: snippet.toObject() })
     } catch (error) {

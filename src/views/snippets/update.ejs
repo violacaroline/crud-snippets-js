@@ -10,7 +10,7 @@
     <label class="form-label" for="snippetTextarea">
       Snippet
     </label>
-    <textarea name="snippet" id="snippetTextarea" value="<%= viewData?.snippet %>" required="required"></textarea>
+    <textarea name="snippet" id="snippetTextarea" value="" required="required"><%= viewData?.snippet %></textarea>
   </div> <!-- WHY DOES <%= viewData?.title %> SHOW/SAVE BUT NOT FOR SNIPPET IN TEXTAREA? -->
   <div class="col-12">
     <button type="submit" class="btn btn-primary">Update</button>
