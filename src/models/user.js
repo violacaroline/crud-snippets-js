@@ -1,24 +1,28 @@
 import mongoose from 'mongoose'
+import bcryptjs from 'bcryptjs'
+
+// Create bcrypt
+const bcrypt = bcryptjs
 
 // Create a schema. SHOULD I HAVE A USER SCHEMA?
-const schema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
     unique: true,
     trim: true,
     minlength: 1,
-    maxlength: 30
+    maxlength: 50
   },
   password: {
     type: String,
     required: true,
-    trim: true,
-    minlength: 1,
-    maxlength: 30
+    minlength: [10, 'The password must be at least 10 characters long.'],
+    maxlength: 500
   }
 }, {
   timestamps: true, // NECESSARY FOR USER MODEL?
+  versionKey: false,
   toObject: {
     virtuals: true, // ensure virtual fields are serialized
     /**
@@ -34,9 +38,14 @@ const schema = new mongoose.Schema({
   }
 })
 
-schema.virtual('id').get(function () {
+userSchema.virtual('id').get(function () {
   return this._id.toHexString() // NECESSARY FOR USER MODEL?
 })
 
+// Salts and hashes password before save.
+userSchema.pre('save', async function () {
+  this.password = await bcrypt.hash(this.password, 8)
+})
+
 // Create a model using the schema.
-export const User = mongoose.model('User', schema)
+export const User = mongoose.model('User', userSchema)

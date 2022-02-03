@@ -48,8 +48,18 @@ export class SnippetsController {
         username: req.body.username,
         password: req.body.password
       })
+      const { username } = req.body
 
-      // ENCRYPT PASSWORDS? BCRYPT.HASH(PASSWORD, SALT)?
+      const userExists = await User.findOne({ username })
+      console.log('User exists', userExists)
+
+      // if (userExists) { // THIS MAKES APP CRASH?
+      //   console.log('User exists')
+      //   req.session.flash = { type: 'danger', text: 'Username already exists!' }
+      //   res.redirect('./register')
+      // }
+
+      // ENCRYPT PASSWORDS? BCRYPT.HASH(PASSWORD, SALT)? MATS GJORDE DET VIA MODELS?
 
       await user.save() // HUR SKA JAG SPARA I DATABAS KORREKT?
 
@@ -85,6 +95,7 @@ export class SnippetsController {
       // })
 
       // LOGIK FÖR BCRYPT ETC
+      // ENCRYPT PASSWORDS? BCRYPT.HASH(PASSWORD, SALT)? MATS GJORDE DET VIA MODELS?
 
       // await user.save() // HUR SKA JAG SPARA I DATABAS KORREKT?
 
