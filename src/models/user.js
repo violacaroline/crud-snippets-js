@@ -42,6 +42,24 @@ userSchema.virtual('id').get(function () {
   return this._id.toHexString() // NECESSARY FOR USER MODEL?
 })
 
+/**
+ * Looks up user for authentication in database.
+ *
+ * @param {*} username - The username.
+ * @param {*} password - The password.
+ * @returns {object} - The validated user.
+ */
+userSchema.statics.authenticate = async function (username, password) {
+  const user = await this.findOne({ username })
+
+  if (!user || !(await bcrypt.compare(password, user.password))) {
+    throw new Error('Invalid login.')
+  }
+
+  // User exists and password correct, return user
+  return user
+}
+
 // Salts and hashes password before save.
 userSchema.pre('save', async function () {
   this.password = await bcrypt.hash(this.password, 8)

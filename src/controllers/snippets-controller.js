@@ -59,8 +59,6 @@ export class SnippetsController {
       //   res.redirect('./register')
       // }
 
-      // ENCRYPT PASSWORDS? BCRYPT.HASH(PASSWORD, SALT)? MATS GJORDE DET VIA MODELS?
-
       await user.save() // HUR SKA JAG SPARA I DATABAS KORREKT?
 
       req.session.flash = { type: 'success', text: 'You have been registered!' }
@@ -89,20 +87,17 @@ export class SnippetsController {
    */
   async loginPost (req, res) {
     try {
-      // const user = new User({ // DENNA ÄR FÖR ATT REGISTRERA EN USER - VAD SKA ANVÄNDAS NÄR JAG LOGGAR IN?
-      //   username: req.body.username,
-      //   password: req.body.password
-      // })
-
-      // LOGIK FÖR BCRYPT ETC
-      // ENCRYPT PASSWORDS? BCRYPT.HASH(PASSWORD, SALT)? MATS GJORDE DET VIA MODELS?
+      const user = await User.authenticate(req.body.username, req.body.password)
+      req.session.regenerate(() => {
+        // WHAT NOW?
+        req.session.flash = { type: 'success', text: 'You have been logged in!' }
+        console.log('The user:', user)
+        res.redirect('.')
+      })
 
       // await user.save() // HUR SKA JAG SPARA I DATABAS KORREKT?
-
-      req.session.flash = { type: 'success', text: 'You have been logged in!' }
-      res.redirect('.')
     } catch (error) {
-      req.session.flash = { type: 'danger', text: error.message }
+      req.session.flash = { type: 'danger', text: error.message } // 'Log in failed'
       res.redirect('./login')
     }
   }
