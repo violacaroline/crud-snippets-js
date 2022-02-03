@@ -1,4 +1,6 @@
 import { Snippet } from '../models/snippet.js'
+// SKALL JAG IMPORTERA USER MODEL HÄR?
+import { User } from '../models/user.js'
 
 /**
  * Snippets controller.
@@ -30,6 +32,39 @@ export class SnippetsController {
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
    */
+  async register (req, res) {
+    res.render('snippets/register')
+  }
+
+  /**
+   * Registers a user. NEEDS TO BE FIXED. KAN DEN SE LIKADAN UT SOM CREATE POST?
+   *
+   * @param {*} req - Express request object.
+   * @param {*} res - Express response object.
+   */
+  async registerPost (req, res) {
+    try {
+      const user = new User({
+        username: req.body.username,
+        password: req.body.password
+      })
+
+      await user.save() // HUR SKA JAG SPARA I DATABAS KORREKT?
+
+      req.session.flash = { type: 'success', text: 'You have been registered!' }
+      res.redirect('/')
+    } catch (error) {
+      req.session.flash = { type: 'danger', text: error.message }
+      res.redirect('./register')
+    }
+  }
+
+  /**
+   * Returns a HTML form for logging in.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   */
   async login (req, res) {
     res.render('snippets/login')
   }
@@ -40,6 +75,22 @@ export class SnippetsController {
    * @param {*} req - Express request object.
    * @param {*} res - Express response object.
    */
+  async loginPost (req, res) {
+    try {
+      // const user = new User({ // DENNA ÄR FÖR ATT REGISTRERA EN USER - VAD SKA ANVÄNDAS NÄR JAG LOGGAR IN?
+      //   username: req.body.username,
+      //   password: req.body.password
+      // })
+
+      // await user.save() // HUR SKA JAG SPARA I DATABAS KORREKT?
+
+      req.session.flash = { type: 'success', text: 'You have been logged in!' }
+      res.redirect('.')
+    } catch (error) {
+      req.session.flash = { type: 'danger', text: error.message }
+      res.redirect('./login')
+    }
+  }
 
   /**
    * Returns a HTML form for creating a new snippet.
@@ -66,10 +117,10 @@ export class SnippetsController {
 
       await snippet.save()
 
-      // req.session.flash = { type: 'success', text: 'The snippet was created!' }
+      req.session.flash = { type: 'success', text: 'The snippet was created!' }
       res.redirect('.')
     } catch (error) {
-      // req.session.flash = { type: 'danger', text: error.message }
+      req.session.flash = { type: 'danger', text: error.message }
       res.redirect('./create')
     }
   }
@@ -86,7 +137,7 @@ export class SnippetsController {
 
       res.render('snippets/update', { viewData: snippet.toObject() })
     } catch (error) {
-      // req.session.flash = { type: 'danger', text: error.message }
+      req.session.flash = { type: 'danger', text: error.message }
       res.redirect('..')
     }
   }
@@ -102,23 +153,21 @@ export class SnippetsController {
       const snippet = await Snippet.findById(req.params.id)
 
       if (snippet) {
-        // snippet.description = req.body.description
-        // snippet.done = req.body.done === 'on' CHANGED THIS TO BELOW
         snippet.title = req.body.title
         snippet.snippet = req.body.snippet
 
         await snippet.save()
 
-        // req.session.flash = { type: 'success', text: 'The snippet was updated!' }
+        req.session.flash = { type: 'success', text: 'The snippet was updated!' }
       } else {
-        // req.session.flash = {
-        //   type: 'danger',
-        //   text: 'The snippet you attempted to update was removed by another user after you got the original values.'
-        // }
+        req.session.flash = {
+          type: 'danger',
+          text: 'The snippet you attempted to update was removed by another user after you got the original values.'
+        }
       }
       res.redirect('..')
     } catch (error) {
-      // req.session.flash = { type: 'danger', text: error.message }
+      req.session.flash = { type: 'danger', text: error.message }
       res.redirect('./update')
     }
   }
@@ -150,10 +199,10 @@ export class SnippetsController {
     try {
       await Snippet.findByIdAndDelete(req.body.id)
 
-      // req.session.flash = { type: 'success', text: 'The snippet was deleted.' }
+      req.session.flash = { type: 'success', text: 'The snippet was deleted.' }
       res.redirect('..')
     } catch (error) {
-      // req.session.flash = { type: 'danger', text: error.message }
+      req.session.flash = { type: 'danger', text: error.message }
       res.redirect('./delete')
     }
   }

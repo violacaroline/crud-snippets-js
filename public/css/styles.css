@@ -39,6 +39,10 @@ nav ul {
   align-items: flex-end;
 }
 
+.nav-link {
+  white-space: nowrap;
+}
+
 main {
   margin: 30px;
 }
@@ -87,7 +91,7 @@ nav li {
   margin-left: 20px;
 }
 
-/* TEST STYLES FOR SNIPPETS INDEX*/
+/* TEST STYLES FOR SNIPPETS INDEX */
 .table-container {
   width: 100%;
 }
@@ -100,7 +104,7 @@ nav li {
 .table-snippets {
   max-width: 150px;
   overflow: hidden;
-  padding: 0px;
+  padding: 5px;
   text-align: left;
 }
 
@@ -115,6 +119,13 @@ nav li {
   border-radius: 10px;  
 }
 
+/* STYLES FOR FLASH MESSAGES */
+.flash-message {
+  font-size: 20px;
+  font-weight: bold;
+  color: crimson;
+  text-align: center;
+}
 .footer {
   margin-top: auto;
   bottom: 0;

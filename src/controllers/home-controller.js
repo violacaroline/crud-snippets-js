@@ -11,6 +11,8 @@ export class HomeController {
    * @param {Function} next - Express next middleware function.
    */
   index (req, res, next) {
+    // console.log('Logga session: ', req.session)
+    console.log('Logga session id: ', req.session.id)
     res.render('home/index')
   }
 }
