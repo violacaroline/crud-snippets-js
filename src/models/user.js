@@ -4,7 +4,7 @@ import bcryptjs from 'bcryptjs'
 // Create bcrypt
 const bcrypt = bcryptjs
 
-// Create a schema. SHOULD I HAVE A USER SCHEMA?
+// Create a schema.
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
     maxlength: 500
   }
 }, {
-  timestamps: true, // NECESSARY FOR USER MODEL?
+  timestamps: true,
   versionKey: false,
   toObject: {
     virtuals: true, // ensure virtual fields are serialized

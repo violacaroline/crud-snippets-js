@@ -1,7 +1,11 @@
 import mongoose from 'mongoose'
-
+import { User } from './user.js'
 // Create a schema.
 const schema = new mongoose.Schema({
+  userId: {
+    type: String,
+    id: User._id
+  },
   title: {
     type: String,
     required: true,
