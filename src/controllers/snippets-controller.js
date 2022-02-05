@@ -20,7 +20,6 @@ export class SnippetsController {
       }
       const userIdentification = await User.find(req.params.userId)
       const userid = userIdentification[0].id
-      console.log(viewData)
       res.render('snippets/index', { viewData, userid })
     } catch (error) {
       next(error)
@@ -95,7 +94,7 @@ export class SnippetsController {
         console.log('The user:', user)
         res.redirect('.')
       })
-      console.log('Logging in')
+      console.log(req.session, 'Logging in')
     } catch (error) {
       req.session.flash = { type: 'danger', text: error.message } // 'Log in failed'
       res.redirect('./login')
@@ -134,12 +133,10 @@ export class SnippetsController {
    * @param {object} res - Express response object.
    */
   async createPost (req, res) {
-    // console.log(req)
+    console.log(req.session)
     try {
-      const userIdentification = await User.findOne(req.params.userId)
-      const userid = userIdentification.id
       const snippet = new Snippet({
-        userId: userid,
+        userId: 1,
         title: req.body.title,
         snippet: req.body.snippet
       })
@@ -163,7 +160,6 @@ export class SnippetsController {
   async update (req, res) {
     try {
       const snippet = await Snippet.findById(req.params.id)
-      console.log(snippet)
 
       res.render('snippets/update', { viewData: snippet.toObject() })
     } catch (error) {
