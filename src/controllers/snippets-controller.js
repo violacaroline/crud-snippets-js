@@ -14,15 +14,16 @@ export class SnippetsController {
    */
   async index (req, res, next) {
     try {
-      console.log('Den jävla sessionen: ', req.session)
+      // console.log('Den jävla sessionen: ', req.session)
       const viewData = {
         snippets: (await Snippet.find())
           .map(snippet => snippet.toObject())
       }
-      // const user = await User.find(req.params.userId)
-      const userid = req.session.userid // I AM NOT GETTING THE CURRENTLY LOGGED IN USERS ID THIS WAY.
+      const userid = req.session.userid
+      console.log('Trying to get the name', req.session.user)
+      const userNameView = req.session.user
 
-      res.render('snippets/index', { viewData, userid })
+      res.render('snippets/index', { viewData, userid, userNameView })
     } catch (error) {
       next(error)
     }
@@ -35,7 +36,9 @@ export class SnippetsController {
    * @param {object} res - Express response object.
    */
   async register (req, res) {
-    res.render('snippets/register')
+    const userNameView = req.session.user
+
+    res.render('snippets/register', { userNameView })
   }
 
   /**
@@ -52,21 +55,15 @@ export class SnippetsController {
       })
       const { username } = req.body
 
-      const userExists = await User.findOne({ username })
+      const userExists = await User.findOne({ username }) // IS THIS NEEDED?
       console.log('User exists', userExists)
-
-      // if (userExists) { // THIS MAKES APP CRASH?
-      //   console.log('User exists')
-      //   req.session.flash = { type: 'danger', text: 'Username already exists!' }
-      //   res.redirect('./register')
-      // }
 
       await user.save()
 
       req.session.flash = { type: 'success', text: 'You have been registered!' }
       res.redirect('./login')
     } catch (error) {
-      req.session.flash = { type: 'danger', text: error.message }
+      req.session.flash = { type: 'danger', text: 'Registration failed.' }
       res.redirect('./register')
     }
   }
@@ -78,7 +75,9 @@ export class SnippetsController {
    * @param {object} res - Express response object.
    */
   async login (req, res) {
-    res.render('snippets/login')
+    const userNameView = req.session.user
+
+    res.render('snippets/login', { userNameView })
   }
 
   /**
@@ -126,7 +125,9 @@ export class SnippetsController {
    * @param {object} res - Express response object.
    */
   async create (req, res) {
-    res.render('snippets/create')
+    const userNameView = req.session.user
+
+    res.render('snippets/create', { userNameView })
   }
 
   /**
@@ -165,8 +166,9 @@ export class SnippetsController {
   async update (req, res) {
     try {
       const snippet = await Snippet.findById(req.params.id)
+      const userNameView = req.session.user
 
-      res.render('snippets/update', { viewData: snippet.toObject() })
+      res.render('snippets/update', { viewData: snippet.toObject(), userNameView })
     } catch (error) {
       req.session.flash = { type: 'danger', text: error.message }
       res.redirect('..')
@@ -212,8 +214,9 @@ export class SnippetsController {
   async delete (req, res) {
     try {
       const snippet = await Snippet.findById(req.params.id)
+      const userNameView = req.session.user
 
-      res.render('snippets/delete', { viewData: snippet.toObject() })
+      res.render('snippets/delete', { viewData: snippet.toObject(), userNameView })
     } catch (error) {
       // req.session.flash = { type: 'danger', text: error.message }
       res.redirect('..')

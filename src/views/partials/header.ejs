@@ -3,24 +3,37 @@
     <h1>CRUD Snippets</h1>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <% if (userNameView) { %>
+        <li class="nav-item">
+          <span class="nav-link">User: <%= userNameView %> </span>
+        </li>
+        <% } %>
         <li class="nav-item">
           <a class="nav-link" href="/">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/snippets">Snippets</a>
         </li>
+        <% if (userNameView) { %>
         <li class="nav-item">
           <a class="nav-link" href="/snippets/create">Create snippet</a>
         </li>
+        <% } %>
+        <% if (!userNameView) { %>
         <li class="nav-item">
           <a class="nav-link" href="/snippets/register">Register</a>
         </li>
+        <% } %>
+        <% if (!userNameView) { %>
         <li class="nav-item">
           <a class="nav-link" href="/snippets/login">Log in</a>
         </li>
-        <li class="nav-item"> <!-- if user - keep in mind req, res, next -->
+        <% } %>
+        <% if (userNameView) { %>
+        <li class="nav-item">
           <a class="nav-link" href="/snippets/logout">Log out</a>
         </li>
+        <% } %>
       </ul>
     </div>
   </nav>

@@ -11,8 +11,21 @@ export class HomeController {
    * @param {Function} next - Express next middleware function.
    */
   index (req, res, next) {
-    // console.log('Logga session: ', req.session)
-    console.log('Logga session id: ', req.session.id)
-    res.render('home/index')
+    const userNameView = req.session.userid
+    console.log('Log the active user from home index controller', req.session.userid)
+    res.render('home/index', { userNameView })
   }
+
+  /**
+   * Header.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   */
+  // header (req, res) {
+  //   const user = req.session.userid
+  //   console.log(user)
+  //   console.log('Log the active user from home index controller', req.session.userid)
+  //   res.render('./partials/header', { user })
+  // }
 }
