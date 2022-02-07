@@ -1,10 +1,9 @@
 import mongoose from 'mongoose'
-import { User } from './user.js'
+
 // Create a schema.
 const schema = new mongoose.Schema({
-  userId: {
-    type: String,
-    id: User._id
+  userid: {
+    type: String
   },
   title: {
     type: String,
@@ -19,7 +18,7 @@ const schema = new mongoose.Schema({
     trim: true,
     minlength: 1,
     maxlength: 500
-  } // NEEDS A CREATOR TO BE ABLE TO AUTHORIZE???
+  }
 }, {
   timestamps: true,
   toObject: {

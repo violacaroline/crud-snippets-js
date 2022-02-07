@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    minlength: [10, 'The password must be at least 10 characters long.'],
+    minlength: [5, 'The password must be at least 10 characters long.'], // CHANGE TO TEN WHEN FINISHED!!!!!
     maxlength: 500
   }
 }, {
@@ -51,7 +51,7 @@ userSchema.virtual('id').get(function () {
  */
 userSchema.statics.authenticate = async function (username, password) {
   const user = await this.findOne({ username })
-
+  // console.log('The id from user.js', user._id)
   if (!user || !(await bcrypt.compare(password, user.password))) {
     throw new Error('Invalid login.')
   }

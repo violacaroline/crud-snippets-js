@@ -14,12 +14,14 @@ export class SnippetsController {
    */
   async index (req, res, next) {
     try {
+      console.log('Den jävla sessionen: ', req.session)
       const viewData = {
         snippets: (await Snippet.find())
           .map(snippet => snippet.toObject())
       }
-      const userIdentification = await User.find(req.params.userId)
-      const userid = userIdentification[0].id
+      // const user = await User.find(req.params.userId)
+      const userid = req.session.userid // I AM NOT GETTING THE CURRENTLY LOGGED IN USERS ID THIS WAY.
+
       res.render('snippets/index', { viewData, userid })
     } catch (error) {
       next(error)
@@ -88,13 +90,15 @@ export class SnippetsController {
   async loginPost (req, res) {
     try {
       const user = await User.authenticate(req.body.username, req.body.password)
+      console.log('Den jävla bodyn', req.body.username, req.body.password)
+
       req.session.regenerate(() => {
-        // WHAT NOW?
+        req.session.user = req.body.username
+        req.session.userid = user.id
         req.session.flash = { type: 'success', text: 'You have been logged in!' }
-        console.log('The user:', user)
         res.redirect('.')
       })
-      console.log(req.session, 'Logging in')
+      console.log('Logging in')
     } catch (error) {
       req.session.flash = { type: 'danger', text: error.message } // 'Log in failed'
       res.redirect('./login')
@@ -104,16 +108,16 @@ export class SnippetsController {
   /**
    * Bla.
    *
-   * @param {*} req - bla
-   * @param {*} res - bla
+   * @param {object} req - bla
+   * @param {object} res - bla
    */
   async logout (req, res) {
     if (req.session) {
+      req.session.flash = { type: 'success', text: 'You are logged out!' }
       req.session.destroy()
+      res.redirect('/')
+      console.log('Logging out')
     }
-    console.log('Logging out')
-    // req.session.flash = { type: 'success', text: 'You are logged out!' }
-    res.redirect('/')
   }
 
   /**
@@ -133,10 +137,12 @@ export class SnippetsController {
    * @param {object} res - Express response object.
    */
   async createPost (req, res) {
-    console.log(req.session)
+    console.log('The req.session: ', req.session)
+    console.log('The req.session.userid from createPost', req.session.userid)
+
     try {
       const snippet = new Snippet({
-        userId: 1,
+        userid: req.session.userid,
         title: req.body.title,
         snippet: req.body.snippet
       })
