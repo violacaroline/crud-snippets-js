@@ -90,8 +90,7 @@ export class SnippetsController {
   async loginPost (req, res) {
     try {
       const user = await User.authenticate(req.body.username, req.body.password)
-      console.log('Den jävla bodyn', req.body.username, req.body.password)
-
+      console.log('The userid that later will be set on snippet: ', user.id)
       req.session.regenerate(() => {
         req.session.user = req.body.username
         req.session.userid = user.id

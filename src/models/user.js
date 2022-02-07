@@ -86,8 +86,11 @@ userSchema.statics.authorizeForCreate = async function (req, res, next) {
  * @returns {boolean} - Authorize user true/false.
  */
 userSchema.statics.authorizeForUpdateDelete = async function (req, res, next) {
-  // console.log('This sessions user: ', req.session.userid)
-  const snippet = await Snippet.findOne({ id: req.params.id })
+  console.log('This sessions user: ', req.session.userid)
+  console.log('This snippet params.id: ', req.params.id)
+  const snippet = await Snippet.findOne({ _id: req.params.id })
+  console.log('The whole snippet: ', snippet)
+  console.log('snippet.userid ', snippet.userid)
 
   if (req.session.userid === snippet.userid) {
     return true
