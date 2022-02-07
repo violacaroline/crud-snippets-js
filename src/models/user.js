@@ -62,24 +62,36 @@ userSchema.statics.authenticate = async function (username, password) {
 }
 
 /**
- * Authorize user.
+ * Authorize user for create page.
  *
  * @param {*} req - Express request object.
  * @param {*} res - Express response object.
  * @param {*} next - Next function call.
  * @returns {boolean} - Authorize user true/false.
  */
-userSchema.statics.authorize = async function (req, res, next) {
-  console.log('This sessions user: ', req.session.userid)
-  // const user = await this.findOne({ user: req.session.userid })
-  const snippet = await Snippet.findOne({ id: req.params.id })
-  console.log('const user: ', 'Const snippet ', snippet)
-
-  if (req.session.userid === snippet.userid) {
-    console.log('True')
+userSchema.statics.authorizeForCreate = async function (req, res, next) {
+  if (req.session.userid) {
     return true
   } else {
-    console.log('False')
+    return false
+  }
+}
+
+/**
+ * Authorize user for update/delete pages.
+ *
+ * @param {*} req - Express request object.
+ * @param {*} res - Express response object.
+ * @param {*} next - Next function call.
+ * @returns {boolean} - Authorize user true/false.
+ */
+userSchema.statics.authorizeForUpdateDelete = async function (req, res, next) {
+  // console.log('This sessions user: ', req.session.userid)
+  const snippet = await Snippet.findOne({ id: req.params.id })
+
+  if (req.session.userid === snippet.userid) {
+    return true
+  } else {
     return false
   }
 }

@@ -8,23 +8,36 @@ export const router = express.Router()
 const controller = new SnippetsController()
 
 /**
- * Authorization function.
+ * Authorization function for create page.
  *
  * @param {*} req - Express request object.
  * @param {*} res - Express response object.
  * @param {*} next - Next function call.
  * @returns {Error} - An errror page.
  */
-const authorizeUser = async (req, res, next) => {
-  // Logik if userid snipp samma som logged in user req.params.id
-  const authorized = await User.authorize(req, res, next)
-  console.log(authorized)
+const authorizeUserForCreate = async (req, res, next) => {
+  const authorized = await User.authorizeForCreate(req, res, next)
   if (authorized) {
-    console.log('Hi Im authorized')
     next()
   } else {
-    console.log('Hi Im not authorized')
-    return next(createError(403, 'Forbidden'))
+    return next(createError(404, 'Not found.'))
+  }
+}
+
+/**
+ * Authorization function for update/delete pages.
+ *
+ * @param {*} req - Express request object.
+ * @param {*} res - Express response object.
+ * @param {*} next - Next function call.
+ * @returns {Error} - An errror page.
+ */
+const authorizeUserForUpdateDelete = async (req, res, next) => {
+  const authorized = await User.authorizeForUpdateDelete(req, res, next)
+  if (authorized) {
+    next()
+  } else {
+    return next(createError(403, 'You are not authorized to access this page.'))
   }
 }
 
@@ -40,11 +53,11 @@ router.post('/login', (req, res, next) => controller.loginPost(req, res, next))
 
 router.get('/logout', (req, res, next) => controller.logout(req, res, next))
 
-router.get('/create', (req, res, next) => controller.create(req, res, next))
-router.post('/create', (req, res, next) => controller.createPost(req, res, next))
-// User inloggad måste vara samma som userid på snippet
-router.get('/:id/update', authorizeUser, (req, res, next) => controller.update(req, res, next))
-router.post('/:id/update', authorizeUser, (req, res, next) => controller.updatePost(req, res, next))
+router.get('/create', authorizeUserForCreate, (req, res, next) => controller.create(req, res, next))
+router.post('/create', authorizeUserForCreate, (req, res, next) => controller.createPost(req, res, next))
 
-router.get('/:id/delete', (req, res, next) => controller.delete(req, res, next))
-router.post('/:id/delete', (req, res, next) => controller.deletePost(req, res, next))
+router.get('/:id/update', authorizeUserForUpdateDelete, (req, res, next) => controller.update(req, res, next))
+router.post('/:id/update', authorizeUserForUpdateDelete, (req, res, next) => controller.updatePost(req, res, next))
+
+router.get('/:id/delete', authorizeUserForUpdateDelete, (req, res, next) => controller.delete(req, res, next))
+router.post('/:id/delete', authorizeUserForUpdateDelete, (req, res, next) => controller.deletePost(req, res, next))

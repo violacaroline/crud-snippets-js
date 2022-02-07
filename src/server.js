@@ -102,7 +102,7 @@ try {
     // Render the error page.
     res
       .status(err.status || 500)
-      .render('errors/error', { error: err })
+      .render('errors/error', { error: err }) //
   })
 
   // Starts the HTTP server listening for connections.
