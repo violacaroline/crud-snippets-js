@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import bcryptjs from 'bcryptjs'
+import { Snippet } from './snippet.js'
 
 // Create bcrypt
 const bcrypt = bcryptjs
@@ -58,6 +59,29 @@ userSchema.statics.authenticate = async function (username, password) {
 
   // User exists and password correct, return user
   return user
+}
+
+/**
+ * Authorize user.
+ *
+ * @param {*} req - Express request object.
+ * @param {*} res - Express response object.
+ * @param {*} next - Next function call.
+ * @returns {boolean} - Authorize user true/false.
+ */
+userSchema.statics.authorize = async function (req, res, next) {
+  console.log('This sessions user: ', req.session.userid)
+  // const user = await this.findOne({ user: req.session.userid })
+  const snippet = await Snippet.findOne({ id: req.params.id })
+  console.log('const user: ', 'Const snippet ', snippet)
+
+  if (req.session.userid === snippet.userid) {
+    console.log('True')
+    return true
+  } else {
+    console.log('False')
+    return false
+  }
 }
 
 // Salts and hashes password before save.
