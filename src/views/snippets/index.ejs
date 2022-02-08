@@ -13,8 +13,8 @@
           <td><%= snippet.title %></td> <td class="table-snippets"><%= snippet.snippet %></td>
           <% if (snippet.userid === userid) { %>
           <td class="text-nowrap">
-            <a href="/snippets/<%= snippet.id %>/update" class="update-delete">Update</a>
-            <a href="/snippets/<%= snippet.id %>/delete" class="update-delete">Delete</a>
+            <a href="./snippets/<%= snippet.id %>/update" class="update-delete">Update</a>
+            <a href="./snippets/<%= snippet.id %>/delete" class="update-delete">Delete</a>
           </td>
           <% } %>
         </tr>

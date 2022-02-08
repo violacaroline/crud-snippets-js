@@ -19,7 +19,7 @@ export class SnippetsController {
           .map(snippet => snippet.toObject())
       }
       const userid = req.session.userid
-      const userNameView = req.session.user // HUR KAN JAG FÅ APP ATT INTE KRASCHA OM NÅGON KLISTRAR IN URL TILL UPDATE SOM ANONYM ANVÄNDARE OCH USERNAMEVIEW DÄRMED ÄR UNDEFINED????
+      const userNameView = req.session.user
 
       res.render('snippets/index', { viewData, userid, userNameView })
     } catch (error) {
@@ -96,16 +96,15 @@ export class SnippetsController {
   }
 
   /**
-   * Logs the user out. MIGHT NEED ADDITIONAL LOGIC - RETURN A PAGE INBETWEEN - FLASH MESSAGE DOES NOT SHOW?
+   * Logs the user out.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
    */
   async logout (req, res) {
     if (req.session) {
-      req.session.flash = { type: 'success', text: 'You are logged out!' } // FIX????
       req.session.destroy()
-      res.redirect('/')
+      res.redirect('../')
     }
   }
 

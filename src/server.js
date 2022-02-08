@@ -25,13 +25,13 @@ try {
   const directoryFullName = dirname(fileURLToPath(import.meta.url))
 
   // Secure with helmet
-  app.use(helmet()) // DOES SOMETHING NEED TO BE ADDED?????
+  app.use(helmet())
 
   // Set the base URL to use for all relative URLs in a document.
   const baseURL = process.env.BASE_URL || '/'
 
   // Set up a morgan logger using the dev format for log entries.
-  app.use(logger('dev')) // HOW TO USE THIS REALLY???? CONSOLE.LOG????
+  app.use(logger('dev'))
 
   // View engine setup.
   app.set('view engine', 'ejs')
@@ -54,7 +54,7 @@ try {
     saveUninitialized: false, // Don't save a created but not modified session.
     cookie: {
       maxAge: 1000 * 60 * 60 * 24, // 1 day
-      sameSite: 'strict' // ENOUGH FOR CSRF??? HTTP ONLY???
+      sameSite: 'strict'
     }
   }
 
@@ -75,6 +75,7 @@ try {
 
     // Pass the base URL to the views.
     res.locals.baseURL = baseURL
+    console.log(res.locals.baseURL)
 
     next()
   })

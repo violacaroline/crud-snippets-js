@@ -1,5 +1,5 @@
 <h1>Delete snippet</h1>
-<form class="row g-3" method="post" action="/snippets/<%= viewData?.id %>/delete">
+<form class="row g-3" method="post" action="<%=baseURL%>snippets/<%= viewData?.id %>/delete">
   <input type="hidden" name="id" value="<%= viewData?.id %>" />
   <div class="col-md-12">
     <label class="form-label" for="descriptionInput">
