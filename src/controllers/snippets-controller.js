@@ -103,7 +103,7 @@ export class SnippetsController {
    */
   async logout (req, res) {
     if (req.session) {
-      req.session.flash = { type: 'success', text: 'You are logged out!' } // FIX
+      req.session.flash = { type: 'success', text: 'You are logged out!' } // FIX????
       req.session.destroy()
       res.redirect('/')
     }
