@@ -71,10 +71,12 @@ label {
   display: block;
   margin-top: 24px;
 }
+
 textarea {
   font-family: Arial, Helvetica, sans-serif;
   height: 120px;
 }
+
 button {
   margin-top: 20px;
   background: crimson;
@@ -100,6 +102,7 @@ nav li {
 .table-container {
   width: 100%;
 }
+
 .table-headings {
   font-size: 20px;
   text-align: left;
