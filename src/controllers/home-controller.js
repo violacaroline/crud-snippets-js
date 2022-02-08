@@ -11,21 +11,7 @@ export class HomeController {
    * @param {Function} next - Express next middleware function.
    */
   index (req, res, next) {
-    const userNameView = req.session.userid
-    console.log('Log the active user from home index controller', req.session.userid)
+    const userNameView = req.session.user
     res.render('home/index', { userNameView })
   }
-
-  /**
-   * Header.
-   *
-   * @param {object} req - Express request object.
-   * @param {object} res - Express response object.
-   */
-  // header (req, res) {
-  //   const user = req.session.userid
-  //   console.log(user)
-  //   console.log('Log the active user from home index controller', req.session.userid)
-  //   res.render('./partials/header', { user })
-  // }
 }

@@ -46,7 +46,7 @@ try {
   // Serve static files.
   app.use(express.static(join(directoryFullName, '..', 'public')))
 
-  // Setup and use session middleware (https://github.com/expressjs/session)
+  // Setup and use session middleware
   const sessionOptions = {
     name: process.env.SESSION_NAME, // Don't use default session cookie name.
     secret: process.env.SESSION_SECRET, // Change it!!! The secret is used to hash the session with HMAC.
@@ -56,14 +56,14 @@ try {
       maxAge: 1000 * 60 * 60 * 24, // 1 day
       sameSite: 'strict'
     }
-  } // WHAT IS ALL THIS???
+  }
 
   if (app.get('env') === 'production') {
     app.set('trust proxy', 1) // trust first proxy
     sessionOptions.cookie.secure = true // serve secure cookies
-  } // WHAT IS ALL THIS???
+  }
 
-  app.use(session(sessionOptions)) // WHAT IS THIS?
+  app.use(session(sessionOptions))
 
   // Middleware to be executed before the routes.
   app.use((req, res, next) => {

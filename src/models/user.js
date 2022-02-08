@@ -52,7 +52,6 @@ userSchema.virtual('id').get(function () {
  */
 userSchema.statics.authenticate = async function (username, password) {
   const user = await this.findOne({ username })
-  // console.log('The id from user.js', user._id)
   if (!user || !(await bcrypt.compare(password, user.password))) {
     throw new Error('Invalid login.')
   }
@@ -86,11 +85,7 @@ userSchema.statics.authorizeForCreate = async function (req, res, next) {
  * @returns {boolean} - Authorize user true/false.
  */
 userSchema.statics.authorizeForUpdateDelete = async function (req, res, next) {
-  console.log('This sessions user: ', req.session.userid)
-  console.log('This snippet params.id: ', req.params.id)
   const snippet = await Snippet.findOne({ _id: req.params.id })
-  console.log('The whole snippet: ', snippet)
-  console.log('snippet.userid ', snippet.userid)
 
   if (req.session.userid === snippet.userid) {
     return true

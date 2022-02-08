@@ -47,7 +47,11 @@ main {
   margin: 30px;
 }
 
-/* TEST STYLES FOR SNIPPETS CREATE  */
+.row p {
+  padding: 20px;
+}
+
+/* STYLES FOR SNIPPETS CREATE  */
 
 form {
   max-width: 400px;
@@ -91,7 +95,8 @@ nav li {
   margin-left: 20px;
 }
 
-/* TEST STYLES FOR SNIPPETS INDEX */
+/* STYLES FOR SNIPPETS INDEX */
+
 .table-container {
   width: 100%;
 }
@@ -120,6 +125,7 @@ nav li {
 }
 
 /* STYLES FOR FLASH MESSAGES */
+
 .flash-message {
   font-size: 20px;
   font-weight: bold;
@@ -128,10 +134,10 @@ nav li {
 }
 .footer {
   margin-top: auto;
+  padding: 10px;
   bottom: 0;
   width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 60px;
+  height: 60px; /* Set the fixed height of the footer here */
   line-height: 60px; /* Vertically center the text there */
   background-color: crimson;
   border-radius: 10px;

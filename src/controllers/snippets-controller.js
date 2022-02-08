@@ -14,13 +14,11 @@ export class SnippetsController {
    */
   async index (req, res, next) {
     try {
-      // console.log('Den jävla sessionen: ', req.session)
       const viewData = {
         snippets: (await Snippet.find())
           .map(snippet => snippet.toObject())
       }
       const userid = req.session.userid
-      console.log('Trying to get the name', req.session.user)
       const userNameView = req.session.user
 
       res.render('snippets/index', { viewData, userid, userNameView })
@@ -42,7 +40,7 @@ export class SnippetsController {
   }
 
   /**
-   * Registers a user. NEEDS TO BE FIXED.
+   * Registers a user.
    *
    * @param {*} req - Express request object.
    * @param {*} res - Express response object.
@@ -53,10 +51,6 @@ export class SnippetsController {
         username: req.body.username,
         password: req.body.password
       })
-      const { username } = req.body
-
-      const userExists = await User.findOne({ username }) // IS THIS NEEDED?
-      console.log('User exists', userExists)
 
       await user.save()
 
@@ -81,7 +75,7 @@ export class SnippetsController {
   }
 
   /**
-   * Logs a user in. NEEDS TO BE FIXED.
+   * Logs a user in.
    *
    * @param {*} req - Express request object.
    * @param {*} res - Express response object.
@@ -89,32 +83,29 @@ export class SnippetsController {
   async loginPost (req, res) {
     try {
       const user = await User.authenticate(req.body.username, req.body.password)
-      console.log('The userid that later will be set on snippet: ', user.id)
       req.session.regenerate(() => {
         req.session.user = req.body.username
         req.session.userid = user.id
         req.session.flash = { type: 'success', text: 'You have been logged in!' }
         res.redirect('.')
       })
-      console.log('Logging in')
     } catch (error) {
-      req.session.flash = { type: 'danger', text: error.message } // 'Log in failed'
+      req.session.flash = { type: 'danger', text: error.message }
       res.redirect('./login')
     }
   }
 
   /**
-   * Bla.
+   * Logs the user out. MIGHT NEED ADDITIONAL LOGIC - RETURN A PAGE INBETWEEN - FLASH MESSAGE DOES NOT SHOW?
    *
-   * @param {object} req - bla
-   * @param {object} res - bla
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
    */
   async logout (req, res) {
     if (req.session) {
-      req.session.flash = { type: 'success', text: 'You are logged out!' }
+      req.session.flash = { type: 'success', text: 'You are logged out!' } // FIX
       req.session.destroy()
       res.redirect('/')
-      console.log('Logging out')
     }
   }
 
@@ -137,9 +128,6 @@ export class SnippetsController {
    * @param {object} res - Express response object.
    */
   async createPost (req, res) {
-    console.log('The req.session: ', req.session)
-    console.log('The req.session.userid from createPost', req.session.userid)
-
     try {
       const snippet = new Snippet({
         userid: req.session.userid,
@@ -218,7 +206,7 @@ export class SnippetsController {
 
       res.render('snippets/delete', { viewData: snippet.toObject(), userNameView })
     } catch (error) {
-      // req.session.flash = { type: 'danger', text: error.message }
+      req.session.flash = { type: 'danger', text: error.message }
       res.redirect('..')
     }
   }
