@@ -19,7 +19,7 @@ export class SnippetsController {
           .map(snippet => snippet.toObject())
       }
       const userid = req.session.userid
-      const userNameView = req.session.user
+      const userNameView = req.session.user // HUR KAN JAG FÅ APP ATT INTE KRASCHA OM NÅGON KLISTRAR IN URL TILL UPDATE SOM ANONYM ANVÄNDARE OCH USERNAMEVIEW DÄRMED ÄR UNDEFINED????
 
       res.render('snippets/index', { viewData, userid, userNameView })
     } catch (error) {
