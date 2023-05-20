@@ -87,11 +87,12 @@ userSchema.statics.authorizeForCreate = async function (req, res, next) {
 userSchema.statics.authorizeForUpdateDelete = async function (req, res, next) {
   const snippet = await Snippet.findOne({ _id: req.params.id })
 
-  if (req.session.userid === snippet.userid) {
-    return true
-  } else {
-    return false
-  }
+  return req.session.userid === snippet.userid
+  // if (req.session.userid === snippet.userid) {
+  //   return true
+  // } else {
+  //   return false
+  // }
 }
 
 // Salts and hashes password before save.
